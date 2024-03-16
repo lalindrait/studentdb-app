@@ -1,0 +1,14 @@
+FROM rockylinux:9.2
+LABEL Maintainer="lalindra <admin@lv.com>"
+LABEL Description="studentdb app on rocky linux"
+# Install packages
+RUN dnf install -y iproute && \
+  dnf install -y net-tools && \
+  dnf install -y iputils && \
+  dnf install -y procps-ng && \
+  dnf install -y telnet && \
+  dnf install -y nmap-ncat && \
+  dnf install -y java-17-openjdk
+COPY target/studentdb-0.0.1.jar .
+EXPOSE 8080
+CMD ["java", "-jar", "/studentdb-0.0.1.jar"]

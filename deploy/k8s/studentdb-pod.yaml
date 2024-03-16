@@ -1,0 +1,12 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: studentdb
+  labels:
+    app: studentdb
+spec:
+  containers:
+  - name: studentdb
+    image: lalindrait/studentdb-alpine:0.0.1
+    ports:
+    - containerPort: 8080

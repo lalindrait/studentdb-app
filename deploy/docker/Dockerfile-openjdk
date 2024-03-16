@@ -1,0 +1,6 @@
+FROM openjdk:17
+LABEL Maintainer="lalindra <admin@lv.com>"
+LABEL Description="studentdb app on alpine linux"
+COPY target/studentdb-0.0.1.jar .
+EXPOSE 8080
+CMD ["java", "-jar", "/studentdb-0.0.1.jar"]

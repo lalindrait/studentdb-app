@@ -1,0 +1,62 @@
+Deploy postgres DB in K8s
+=====================================
+### How to guide is inside postgres directory
+
+
+
+
+Deploy jar
+=====================================
+
+./mvnw clean
+./mvnw package -Dmaven.test.skip=true
+
+cd target/
+java -jar studentdb-0.0.1.jar
+
+firewall-cmd --permanent --add-port=8080/tcp
+firewall-cmd --reload
+firewall-cmd --list-ports
+
+http://192.168.1.231:8080/api/v1/student
+curl http://192.168.1.231:8080/api/v1/student
+
+
+
+Deploy docker image
+=====================================
+dnf config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+dnf install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+systemctl start docker
+usermod -aG docker lalindra
+
+# from root of the project
+
+
+docker image build -t "studentdb-alipne:0.0.1" -f deploy/docker/Dockerfile-alpine .
+docker images
+docker run -d --name "studentdb-alpine" -p 8080:8080 studentdb-alpine:0.0.1
+docker ps
+
+http://192.168.1.231:8080/api/v1/student
+
+docker stop af00e739e046
+
+# create a docker access token in docker hub
+docker login -u lalindrait
+docker tag studentdb-alpine:0.0.1 lalindrait/studentdb-alpine:0.0.1
+docker push lalindrait/studentdb-alpine:0.0.1
+
+
+
+
+Deploy on k8s
+=====================================
+kubectl apply -f studentdb-pod.yaml
+kubectl get pods
+kubectl apply -f studentdb-svc.yaml
+kubectl get svc
+
+nc -v 192.168.1.241 31000
+
+192.168.1.241:31000/api/v1/student

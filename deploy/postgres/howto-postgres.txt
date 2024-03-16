@@ -1,0 +1,39 @@
+https://www.airplane.dev/blog/deploy-postgres-on-kubernetes
+
+
+Deploying postgres pod
+===========================================================
+
+kubectl apply -f postgres-config.yaml
+kubectl apply -f postgres-pvc-pv.yaml
+kubectl apply -f postgres-deployment.yaml
+
+kubectl apply -f postgres-svc.yaml
+kubectl get svc
+
+# port shoudl work from all k8s nodes
+nc -v 192.168.1.242 30001
+nc -v 192.168.1.241 30001
+nc -v 192.168.1.231 30001
+
+
+
+Testing postgres
+===========================================================
+dnf install postgresql
+
+psql -h 127.0.0.1 -p 30001 -U admin -d postgresdb
+
+psql -h 192.168.1.231 -p 30001 -U admin -d postgresdb
+psql -h 192.168.1.241 -p 30001 -U admin -d postgresdb
+psql -h 192.168.1.242 -p 30001 -U admin -d postgresdb
+
+
+
+# psql commands
+\l						List available databases
+\c dbname				Switch connection to a new database
+\dt						List available tables
+\du						List all users and their assign roles
+\h						Get help
+\q						Exit psql shell
