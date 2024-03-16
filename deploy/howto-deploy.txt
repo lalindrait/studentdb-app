@@ -14,6 +14,8 @@ Deploy jar
 cd target/
 java -jar studentdb-0.0.1.jar
 
+java -jar studentdb-0.0.1.jar spring.datasource.url=jdbc:postgresql://studentdb.cpny086a0vbw.us-east-1.rds.amazonaws.com:5432/studentdb
+
 firewall-cmd --permanent --add-port=8080/tcp
 firewall-cmd --reload
 firewall-cmd --list-ports
