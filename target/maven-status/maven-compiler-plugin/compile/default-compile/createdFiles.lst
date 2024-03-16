@@ -1,5 +1,5 @@
-com/lv/studentdb/student/StudentService.class
 com/lv/studentdb/student/StudentConfig.class
+com/lv/studentdb/student/StudentService.class
 com/lv/studentdb/student/Student.class
 com/lv/studentdb/StudentdbApplication.class
 com/lv/studentdb/student/StudentController.class
